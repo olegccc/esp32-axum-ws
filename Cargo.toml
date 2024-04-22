@@ -1,0 +1,41 @@
+[package]
+name = "esp32-axum-ws"
+version = "0.1.0"
+authors = ["Oleg Gordeev <olegccc@pm.me>"]
+edition = "2021"
+resolver = "2"
+rust-version = "1.71"
+
+[profile.release]
+opt-level = "s"
+
+[profile.dev]
+debug = true
+opt-level = "z"
+
+[features]
+default = ["std", "embassy", "esp-idf-svc/native"]
+
+pio = ["esp-idf-svc/pio"]
+std = ["alloc", "esp-idf-svc/binstart", "esp-idf-svc/std"]
+alloc = ["esp-idf-svc/alloc"]
+experimental = ["esp-idf-svc/experimental"]
+embassy = ["esp-idf-svc/embassy-sync", "esp-idf-svc/critical-section", "esp-idf-svc/embassy-time-driver"]
+
+[dependencies]
+log = { version = "0.4", default-features = false }
+esp-idf-svc = { version = "0.48", default-features = false }
+tokio = { version = "1.37.0", features = ["rt", "net", "io-util", "macros", "rt-multi-thread"]}
+mio = { version = "0.8.11", features = ["log"] }
+serde = "1.0.198"
+serde_json = "1.0.116"
+axum = { version = "=0.7.4", features = ["http2", "json", "ws"]} # it uses strictly version 0.7.4 because unfortunately latest release version 0.7.5 doesn't work out of the box
+anyhow = "1.0.82"
+heapless = "0.8.0"
+esp-idf-sys = "0.34.1"
+include_dir = "0.7.3"
+futures = "0.3.30"
+
+[build-dependencies]
+embuild = "0.31.3"
+dotenv-build = "0.1.1"
