@@ -1,4 +1,4 @@
-# Rust for ESP32S3 with Axum and Websockets
+# Rust for ESP32 with Axum and Websockets
 
 This repository provides base but working functionality for ESP32 board with Rust environment
 based on `esp-rs` project, where it runs fully functional web server based on Axum web framework
