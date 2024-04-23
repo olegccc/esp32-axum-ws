@@ -35,7 +35,10 @@ export const ConnectionProvider: FC<PropsWithChildren> = ({ children }) => {
     setStore(handleClientMessage(store, message))
   }, [])
 
-  useEffect(() => {
+  const createConnection = () => {
+    if (connectionRef.current) {
+      return
+    }
     connectionRef.current = new Connection({
       onConnectionStatus: (status) => {
         setStatus(status)
@@ -50,10 +53,29 @@ export const ConnectionProvider: FC<PropsWithChildren> = ({ children }) => {
         setStore(newStore)
       },
     })
+  }
+
+  const closeConnection = () => {
+    connectionRef.current?.close()
+    connectionRef.current = undefined
+  }
+
+  useEffect(() => {
+    createConnection()
+
+    const onVisibilityChange = () => {
+      if (document.hidden) {
+        closeConnection()
+      } else {
+        createConnection()
+      }
+    }
+
+    document.addEventListener('visibilitychange', onVisibilityChange)
 
     return () => {
-      connectionRef.current?.close()
-      connectionRef.current = undefined
+      document.removeEventListener('visibilitychange', onVisibilityChange)
+      closeConnection()
     }
   }, [])
 
