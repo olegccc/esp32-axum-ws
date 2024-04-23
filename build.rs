@@ -1,3 +1,4 @@
+use std::process::Command;
 use dotenv_build::output;
 
 fn main() {
@@ -9,6 +10,9 @@ fn main() {
     };
 
     output(config).unwrap();
+
+    Command::new("./build-client.sh").output().expect("Run client build");
+    println!("cargo:rerun-if-changed=client");
 
     embuild::espidf::sysenv::output();
 }
