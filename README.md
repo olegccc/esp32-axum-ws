@@ -21,12 +21,20 @@ with ESP32 device. It is enough to write only web interface, without the need of
 (however Websockets work perfectly with Android and iOS native apps, Flutter apps etc).
 
 The fact that it is based on Tokio and Rust opens all the existing ecosystem of Rust libraries for you.
-You can write tests and debug your app on desktop, before moving to mobile device. 
+You can write tests and debug your app on desktop, before moving to mobile device.
 
-## Install
+This configuration works on macOS and Linux, it will require minor changes to work on Windows.
 
-Rust-ESP installation flow is described here, you need to follow all the required steps there:
+## Setup build environment
+
+Install Rust on ESP build environment
 https://github.com/esp-rs/rust-build
+
+Install latest NodeJS LTS
+https://nodejs.org/en/download
+
+Install Yarn
+https://yarnpkg.com/getting-started/install
 
 ## Prepare
 
@@ -38,10 +46,6 @@ To prepare the build environment, execute the following command each time you op
 
 ## Build
 
-On the first build, and also on each client change, run
-
-`cd client && yarn && yarn build`
-
 To build the project, use the following command:
 
 `cargo build`
@@ -52,9 +56,9 @@ To run the project, use the following command:
 
 ## Reference links
 
-* Rust-ESP installation process: https://github.com/esp-rs/rust-build
-* AXUM web framework: https://github.com/tokio-rs/axum
+* Rust-ESP installation process https://github.com/esp-rs/rust-build
+* Tokio.rs asynchronous runtime https://tokio.rs/tokio/tutorial
+* Axum web application framework https://github.com/tokio-rs/axum
 * Seeed Studio XIAO ESP32S3 https://wiki.seeedstudio.com/xiao_esp32s3_getting_started/
-* Tokio.rs asynchronous runtime documentation https://tokio.rs/tokio/tutorial
 * Awesome ESP Rust https://github.com/esp-rs/awesome-esp-rust
 * esp32-s3-rust-axum-example (used as a prototype for this project) https://github.com/aedm/esp32-s3-rust-axum-example/
